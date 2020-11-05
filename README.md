@@ -22,8 +22,10 @@ When the operation is completed, the result is in `IsUpdateAvailable`.
 ````csharp
 void OnUpdateStatusChanged(object sender, EventArgs e)
 {
+	Checker checker = (Checker)sender; 
 	checker.UpdateStatusChanged -= OnUpdateStatusChanged;
 
 	// Read checker.IsUpdateAvailable
 }
 ````
+
