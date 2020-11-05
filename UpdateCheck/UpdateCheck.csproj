@@ -12,8 +12,8 @@
     <Product />
     <Description>Check any GitHub project for update</Description>
     <Copyright>Copyright © 2020 David Le Bansais</Copyright>
-    <AssemblyVersion>1.0.0.1</AssemblyVersion>
-    <FileVersion>1.0.0.1</FileVersion>
+    <AssemblyVersion>1.0.0.6</AssemblyVersion>
+    <FileVersion>1.0.0.6</FileVersion>
     <RepositoryUrl>https://github.com/dlebansais/UpdateCheck</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>

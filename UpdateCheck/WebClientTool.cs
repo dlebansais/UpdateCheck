@@ -8,10 +8,22 @@
     using System.Threading.Tasks;
     using System.Windows.Threading;
 
-    public static class WebClientTool
+    /// <summary>
+    /// Provide tools to download from the Internet.
+    /// </summary>
+    internal static class WebClientTool
     {
+        /// <summary>
+        /// Handles the result of a download.
+        /// </summary>
+        /// <param name="result">The download result.</param>
         public delegate void DownloadTextResultHandler(DownloadResult result);
 
+        /// <summary>
+        /// Downloads a page of text from the Internet.
+        /// </summary>
+        /// <param name="address">The page address.</param>
+        /// <param name="callback">The download handler.</param>
         public static void DownloadText(string address, DownloadTextResultHandler callback)
         {
             Task<DownloadResult> DownloadTask = new Task<DownloadResult>(() => { return ExecuteDownloadText(address); });
@@ -74,20 +86,20 @@
             }
         }
 
-        private static void PollDownload(Task<DownloadResult> DownloadTask, DownloadTextResultHandler callback)
+        private static void PollDownload(Task<DownloadResult> downloadTask, DownloadTextResultHandler callback)
         {
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action<Task<DownloadResult>, DownloadTextResultHandler>(OnCheckDownload), DownloadTask, callback);
+            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action<Task<DownloadResult>, DownloadTextResultHandler>(OnCheckDownload), downloadTask, callback);
         }
 
-        private static void OnCheckDownload(Task<DownloadResult> DownloadTask, DownloadTextResultHandler callback)
+        private static void OnCheckDownload(Task<DownloadResult> downloadTask, DownloadTextResultHandler callback)
         {
-            if (DownloadTask.IsCompleted)
+            if (downloadTask.IsCompleted)
             {
-                DownloadResult Result = DownloadTask.Result;
+                DownloadResult Result = downloadTask.Result;
                 callback(Result);
             }
             else
-                PollDownload(DownloadTask, callback);
+                PollDownload(downloadTask, callback);
         }
     }
 }
