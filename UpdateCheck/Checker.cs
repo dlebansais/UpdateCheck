@@ -77,7 +77,7 @@
             {
                 bool IsParsedSuccessfully;
 
-                ReleaseVersion Version = new ReleaseVersion(Item.Name, out IsParsedSuccessfully);
+                ReleaseVersion Version = new ReleaseVersion(Item.TagName, out IsParsedSuccessfully);
                 if (BestVersion < Version)
                     BestVersion = Version;
             }

@@ -7,14 +7,14 @@
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>David Le Bansais</Authors>
     <Company />
     <Product />
     <Description>Check any GitHub project for update</Description>
     <Copyright>Copyright © 2020 David Le Bansais</Copyright>
-    <AssemblyVersion>1.0.2.7</AssemblyVersion>
-    <FileVersion>1.0.2.7</FileVersion>
+    <AssemblyVersion>1.0.3.7</AssemblyVersion>
+    <FileVersion>1.0.3.7</FileVersion>
     <RepositoryUrl>https://github.com/dlebansais/UpdateCheck</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
