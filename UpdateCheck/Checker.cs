@@ -1,8 +1,11 @@
 ﻿namespace UpdateCheck
 {
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Reflection;
+    using System.Threading.Tasks;
+    using Octokit;
 
     /// <summary>
     /// Checks if a GitHub project has a new release.
@@ -21,7 +24,11 @@
             ProjectOwner = projectOwner;
             ProjectName = projectName;
             BinaryLocation = Assembly.GetCallingAssembly().Location;
+
+            GitHub = new GitHubClient(new ProductHeaderValue("dlebansais.UpdateCheck"));
         }
+
+        private GitHubClient GitHub;
         #endregion
 
         #region Properties
@@ -57,48 +64,27 @@
         /// </summary>
         public void CheckUpdate()
         {
-            NetTools.EnableSecurityProtocol(out object OldSecurityProtocol);
-            WebClientTool.DownloadText(ReleasePageAddress, (DownloadResult downloadResult) => OnCheckUpdate(downloadResult, OldSecurityProtocol));
+            Task<IReadOnlyList<Release>> GetProjectListTask = GitHub.Repository.Release.GetAll(ProjectOwner, ProjectName);
+            GetProjectListTask.ContinueWith((Task<IReadOnlyList<Release>> task) => OnCheckUpdate(task.Result));
         }
 
-        private void OnCheckUpdate(DownloadResult downloadResult, object oldSecurityProtocol)
+        private void OnCheckUpdate(IReadOnlyList<Release> releaseList)
         {
-            NetTools.RestoreSecurityProtocol(oldSecurityProtocol);
-            OnCheckUpdate(downloadResult);
-        }
+            ReleaseVersion FileVersion = new ReleaseVersion(FileVersionInfo.GetVersionInfo(BinaryLocation));
+            ReleaseVersion BestVersion = FileVersion;
 
-        private void OnCheckUpdate(DownloadResult downloadResult)
-        {
-            if (downloadResult.Exception == DownloadResult.NoException)
-                if (downloadResult.Content.Length > 0)
-                    if (BinaryLocation.Length > 0)
-                        OnCheckUpdate(downloadResult.Content);
-        }
-
-        private void OnCheckUpdate(string content)
-        {
-            string Pattern = $@"<a href=""/{ProjectOwner}/{ProjectName}/releases/tag/";
-            int Index = content.IndexOf(Pattern, StringComparison.InvariantCulture);
-            if (Index >= 0)
+            foreach (Release Item in releaseList)
             {
-                string ParserTagVersion = content.Substring(Index + Pattern.Length, 20);
-                int EndIndex = ParserTagVersion.IndexOf('"');
-                if (EndIndex > 0)
-                {
-                    ParserTagVersion = ParserTagVersion.Substring(0, EndIndex);
-                    if (ParserTagVersion.ToUpperInvariant().StartsWith("V", StringComparison.InvariantCulture))
-                        ParserTagVersion = ParserTagVersion.Substring(1);
+                bool IsParsedSuccessfully;
 
-                    string[] Split = ParserTagVersion.Split('.');
-                    if (int.TryParse(Split[Split.Length - 1], out int buildVersion))
-                    {
-                        FileVersionInfo FileVersionInfo = FileVersionInfo.GetVersionInfo(BinaryLocation);
-                        IsUpdateAvailable = buildVersion > FileVersionInfo.FilePrivatePart;
-
-                        NotifyUpdateStatusChanged();
-                    }
-                }
+                ReleaseVersion Version = new ReleaseVersion(Item.Name, out IsParsedSuccessfully);
+                if (BestVersion < Version)
+                    BestVersion = Version;
             }
+
+            IsUpdateAvailable = BestVersion != FileVersion;
+
+            NotifyUpdateStatusChanged();
         }
         #endregion
 
