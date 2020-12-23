@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net48;net5.0-windows</TargetFrameworks>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <LangVersion>9.0</LangVersion>
