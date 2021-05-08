@@ -8,7 +8,6 @@
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
-    <RootNamespace>TestUpdateCheck</RootNamespace>
     <Version>1.0.3</Version>
     <Authors>David Le Bansais</Authors>
     <Company />
@@ -18,8 +17,14 @@
     <AssemblyVersion>1.0.3.7</AssemblyVersion>
     <FileVersion>1.0.3.7</FileVersion>
     <RepositoryUrl>https://github.com/dlebansais/UpdateCheck</RepositoryUrl>
+    <RootNamespace>TestUpdateCheck</RootNamespace>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\UpdateCheck\UpdateCheck.csproj" />
