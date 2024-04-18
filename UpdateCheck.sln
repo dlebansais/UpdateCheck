@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30503.244
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateCheck", "UpdateCheck\UpdateCheck.csproj", "{FFC48093-7095-4AAB-AA63-337713BE2261}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -15,7 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PreBuild", "PreBuild\PreBuild.csproj", "{ECB6AD78-D26C-4A1E-BE08-A4062B42A8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-UpdateCheck", "Test\Test-UpdateCheck\Test-UpdateCheck.csproj", "{9D016421-734B-433D-AE7E-E21E5F0726F0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateCheck.Demo", "Demo\UpdateCheck.Demo\UpdateCheck.Demo.csproj", "{8351B142-FE1A-4116-9C89-2B4B71FC906A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateCheck.Test", "Test\UpdateCheck.Test\UpdateCheck.Test.csproj", "{D40F93F2-EA0F-42DD-9E71-B1D1D5B14908}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTools", "Test\TestTools\TestTools.csproj", "{87D4F941-6132-48CC-A5F6-FF574176078D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,9 +35,18 @@ Global
 		{ECB6AD78-D26C-4A1E-BE08-A4062B42A8E8}.Debug|x64.Build.0 = Debug|x64
 		{ECB6AD78-D26C-4A1E-BE08-A4062B42A8E8}.Release|x64.ActiveCfg = Release|x64
 		{ECB6AD78-D26C-4A1E-BE08-A4062B42A8E8}.Release|x64.Build.0 = Release|x64
-		{9D016421-734B-433D-AE7E-E21E5F0726F0}.Debug|x64.ActiveCfg = Debug|x64
-		{9D016421-734B-433D-AE7E-E21E5F0726F0}.Debug|x64.Build.0 = Debug|x64
-		{9D016421-734B-433D-AE7E-E21E5F0726F0}.Release|x64.ActiveCfg = Release|x64
+		{8351B142-FE1A-4116-9C89-2B4B71FC906A}.Debug|x64.ActiveCfg = Debug|x64
+		{8351B142-FE1A-4116-9C89-2B4B71FC906A}.Debug|x64.Build.0 = Debug|x64
+		{8351B142-FE1A-4116-9C89-2B4B71FC906A}.Release|x64.ActiveCfg = Release|x64
+		{8351B142-FE1A-4116-9C89-2B4B71FC906A}.Release|x64.Build.0 = Release|x64
+		{D40F93F2-EA0F-42DD-9E71-B1D1D5B14908}.Debug|x64.ActiveCfg = Debug|x64
+		{D40F93F2-EA0F-42DD-9E71-B1D1D5B14908}.Debug|x64.Build.0 = Debug|x64
+		{D40F93F2-EA0F-42DD-9E71-B1D1D5B14908}.Release|x64.ActiveCfg = Release|x64
+		{D40F93F2-EA0F-42DD-9E71-B1D1D5B14908}.Release|x64.Build.0 = Release|x64
+		{87D4F941-6132-48CC-A5F6-FF574176078D}.Debug|x64.ActiveCfg = Debug|x64
+		{87D4F941-6132-48CC-A5F6-FF574176078D}.Debug|x64.Build.0 = Debug|x64
+		{87D4F941-6132-48CC-A5F6-FF574176078D}.Release|x64.ActiveCfg = Release|x64
+		{87D4F941-6132-48CC-A5F6-FF574176078D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

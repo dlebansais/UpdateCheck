@@ -2,11 +2,12 @@
 
 using System;
 using System.Diagnostics;
+using Contracts;
 
 /// <summary>
 /// Represent the version of the release.
 /// </summary>
-public class ReleaseVersion
+internal class ReleaseVersion
 {
     #region Init
     /// <summary>
@@ -35,7 +36,11 @@ public class ReleaseVersion
     /// <param name="parsedSuccessfully">True upon return if the version tag was parsed successfully.</param>
     public ReleaseVersion(string releaseTag, out bool parsedSuccessfully)
     {
+#if NETFRAMEWORK
         if (releaseTag.ToUpperInvariant().StartsWith("V", StringComparison.InvariantCulture))
+#else
+        if (releaseTag.ToUpperInvariant().StartsWith('V'))
+#endif
             releaseTag = releaseTag.Substring(1);
 
         string[] Split = releaseTag.Split('.');
@@ -72,7 +77,7 @@ public class ReleaseVersion
 
         parsedSuccessfully = true;
     }
-    #endregion
+#endregion
 
     #region Properties
     /// <summary>
@@ -182,6 +187,20 @@ public class ReleaseVersion
     public override bool Equals(object? obj)
     {
         return base.Equals(obj);
+    }
+
+    /// <summary>
+    /// Compares another version with this instance.
+    /// </summary>
+    /// <param name="other">The other version.</param>
+    public int CompareTo(ReleaseVersion other)
+    {
+        if (other > this)
+            return 1;
+        else if (other < this)
+            return -1;
+        else
+            return 0;
     }
 
     /// <summary>

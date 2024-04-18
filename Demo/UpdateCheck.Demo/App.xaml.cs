@@ -1,4 +1,4 @@
-﻿namespace TestUpdateCheck;
+﻿namespace UpdateCheckDemo;
 
 using System.Windows;
 

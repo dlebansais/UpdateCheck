@@ -28,7 +28,7 @@ public class Checker
         GitHub = new GitHubClient(new ProductHeaderValue("dlebansais.UpdateCheck"));
     }
 
-    private GitHubClient GitHub;
+    private readonly GitHubClient GitHub;
     #endregion
 
     #region Properties
@@ -62,17 +62,12 @@ public class Checker
     /// <summary>
     /// Checks for update. When the check is completed, <see cref="IsUpdateAvailable"/> contains the result.
     /// </summary>
-    public void CheckUpdate()
-    {
-        Task<IReadOnlyList<Release>> GetProjectListTask = GitHub.Repository.Release.GetAll(ProjectOwner, ProjectName);
-        GetProjectListTask.ContinueWith((Task<IReadOnlyList<Release>> task) => OnCheckUpdateAsync(task));
-    }
-
-    private void OnCheckUpdateAsync(Task<IReadOnlyList<Release>> task)
+    public async Task CheckUpdateAsync()
     {
         try
         {
-            OnCheckUpdate(task.Result);
+            IReadOnlyList<Release> ReleaseList = await GitHub.Repository.Release.GetAll(ProjectOwner, ProjectName).ConfigureAwait(false);
+            OnCheckUpdate(ReleaseList);
         }
         catch
         {
@@ -83,14 +78,14 @@ public class Checker
 
     private void OnCheckUpdate(IReadOnlyList<Release> releaseList)
     {
-        ReleaseVersion FileVersion = new ReleaseVersion(FileVersionInfo.GetVersionInfo(BinaryLocation));
+        ReleaseVersion FileVersion = new(FileVersionInfo.GetVersionInfo(BinaryLocation));
         ReleaseVersion BestVersion = FileVersion;
 
         foreach (Release Item in releaseList)
         {
             bool IsParsedSuccessfully;
 
-            ReleaseVersion Version = new ReleaseVersion(Item.TagName, out IsParsedSuccessfully);
+            ReleaseVersion Version = new(Item.TagName, out IsParsedSuccessfully);
             if (BestVersion < Version)
                 BestVersion = Version;
         }
