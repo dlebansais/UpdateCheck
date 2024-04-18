@@ -17,6 +17,10 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(APPVEYOR)' == 'True' And '$(TargetFramework)' == 'net481'">
+        <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+    </PropertyGroup>
+
     <ItemGroup>
         <None Include="..\..\.editorconfig" Link=".editorconfig" />
     </ItemGroup>
