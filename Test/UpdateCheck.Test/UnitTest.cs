@@ -1,10 +1,7 @@
-﻿namespace EnumComboBox.Test;
+﻿namespace UpdateCheck.Test;
 
 using FlaUI.Core.AutomationElements;
-using FlaUI.Core.Input;
 using NUnit.Framework;
-using System;
-using System.Threading;
 using TestTools;
 
 [TestFixture]

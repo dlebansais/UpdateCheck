@@ -30,9 +30,8 @@ public static class DemoApplication
         if (Application.Launch(CoverageAppName, CoverageAppArgs) is Application CoverageApp)
         {
             Console.WriteLine($"{DateTime.Now} - CoverageAppName launched");
-            Thread.Sleep(TimeSpan.FromSeconds(15));
 
-            if (Application.Attach(AppName) is Application App)
+            if (Attach(AppName, out Application App))
             {
                 Console.WriteLine($"{DateTime.Now} - AppName attached");
                 _ = App.WaitWhileMainHandleIsMissing();
@@ -52,6 +51,31 @@ public static class DemoApplication
         }
 
         return null;
+    }
+
+    private static bool Attach(string appName, out Application app)
+    {
+        Stopwatch Watch = Stopwatch.StartNew();
+
+        while (Watch.Elapsed < TimeSpan.FromSeconds(15))
+        {
+            Thread.Sleep(TimeSpan.FromSeconds(15));
+
+            try
+            {
+                if (Application.Attach(appName) is Application App)
+                {
+                    app = App;
+                    return true;
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        app = null!;
+        return false;
     }
 
     public static void Stop(DemoApp testApp)
