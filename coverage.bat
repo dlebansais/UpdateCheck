@@ -7,7 +7,11 @@ call ..\Certification\set_tokens.bat
 set PROJECTNAME=UpdateCheck
 set TOKEN=%UPDATE_CHECK_CODECOV_TOKEN%
 set TESTPROJECTNAME=%PROJECTNAME%.Test
+set PLATFORM=x64
+set CONFIGURATION=Debug
+set FRAMEWORK=net481
 set RESULTFILENAME=Coverage-%PROJECTNAME%.xml
+set RESULTFILEPATH=".\Test\%TESTPROJECTNAME%\bin\%PLATFORM%\%CONFIGURATION%\%FRAMEWORK%\%RESULTFILENAME%"
 
 set OPENCOVER_VERSION=4.7.1221
 set OPENCOVER=OpenCover.%OPENCOVER_VERSION%
@@ -25,9 +29,6 @@ set REPORTGENERATOR_VERSION=5.2.0
 set REPORTGENERATOR=ReportGenerator.%REPORTGENERATOR_VERSION%
 set REPORTGENERATOR_EXE=".\packages\%REPORTGENERATOR%\tools\net8.0\ReportGenerator.exe"
 
-set FRAMEWORK=net481
-set RESULTFILEPATH=".\Test\%TESTPROJECTNAME%\bin\x64\Debug\%FRAMEWORK%\%RESULTFILENAME%"
-
 nuget install OpenCover -Version %OPENCOVER_VERSION% -OutputDirectory packages
 nuget install CodecovUploader -Version %CODECOV_UPLOADER_VERSION% -OutputDirectory packages
 nuget install NUnit.ConsoleRunner -Version %NUINT_CONSOLE_VERSION% -OutputDirectory packages
@@ -38,11 +39,11 @@ if not exist %NUINT_CONSOLE_EXE% goto error_console3
 
 if exist ".\Test\%TESTPROJECTNAME%\publish" rd /S /Q ".\Test\%TESTPROJECTNAME%\publish"
 
-dotnet build ./Test/%TESTPROJECTNAME% -c Debug -f %FRAMEWORK% /p:Platform=x64
+dotnet build ./Test/%TESTPROJECTNAME% /p:Platform=%PLATFORM% -c %CONFIGURATION% -f %FRAMEWORK%
 
 if exist .\Test\%TESTPROJECTNAME%\*.log del .\Test\%TESTPROJECTNAME%\*.log
 if exist %RESULTFILEPATH% del %RESULTFILEPATH%
-dotnet test ./Test/%TESTPROJECTNAME% -c Debug -f %FRAMEWORK% /p:Platform=x64 --no-build
+dotnet test ./Test/%TESTPROJECTNAME% /p:Platform=%PLATFORM% -c %CONFIGURATION% -f %FRAMEWORK% --no-build --environment RESULTFILENAME="%RESULTFILENAME%"
 if exist %RESULTFILEPATH% %CODECOV_UPLOADER_EXE% -f %RESULTFILEPATH% -t %TOKEN%
 goto end
 
@@ -59,7 +60,7 @@ echo ERROR: nunit3-console not found.
 goto end
 
 :error_not_built
-echo ERROR: %TESTPROJECTNAME%.dll not built (both Debug and Release are required).
+echo ERROR: %TESTPROJECTNAME%.dll not built.
 goto end
 
 :end

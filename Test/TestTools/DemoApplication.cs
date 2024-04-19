@@ -23,9 +23,12 @@ public static class DemoApplication
         string AppDirectory = TestDirectory.Replace(@"\Test\", @"\Demo\", StringComparison.InvariantCulture).Replace(@".Test\", @".Demo\", StringComparison.InvariantCulture);
 #endif
         string AppName = Path.Combine(AppDirectory, $"{demoAppName}.exe");
-        string ResultFileName = Environment.GetEnvironmentVariable("RESULTFILENAME") ?? "result.xml";
+        string ResultFileName = Environment.GetEnvironmentVariable("RESULTFILENAME") ?? @$"{TestDirectory}\result.xml";
         string CoverageAppName = @$"{OpenCoverBasePath}\tools\OpenCover.Console.exe";
-        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" ""-filter:+[*]* -[{demoAppName}*]*"" -output:""{TestDirectory}\{ResultFileName}""";
+        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" ""-filter:+[*]* -[{demoAppName}*]*"" -output:""{ResultFileName}""";
+
+        Console.WriteLine($"{DateTime.Now} - Current Directory: {Environment.CurrentDirectory}");
+        Console.WriteLine($"{DateTime.Now} - Output to: {ResultFileName}");
 
         if (Application.Launch(CoverageAppName, CoverageAppArgs) is Application CoverageApp)
         {
@@ -59,7 +62,7 @@ public static class DemoApplication
 
         while (Watch.Elapsed < TimeSpan.FromSeconds(15))
         {
-            Thread.Sleep(TimeSpan.FromSeconds(15));
+            Thread.Sleep(TimeSpan.FromSeconds(1));
 
             try
             {
