@@ -1,4 +1,4 @@
-rem @echo off
+@echo off
 
 setlocal
 
@@ -26,6 +26,7 @@ set REPORTGENERATOR=ReportGenerator.%REPORTGENERATOR_VERSION%
 set REPORTGENERATOR_EXE=".\packages\%REPORTGENERATOR%\tools\net8.0\ReportGenerator.exe"
 
 set FRAMEWORK=net481
+set RESULTFILEPATH=".\Test\%TESTPROJECTNAME%\bin\x64\Debug\%FRAMEWORK%\%RESULTFILENAME%"
 
 nuget install OpenCover -Version %OPENCOVER_VERSION% -OutputDirectory packages
 nuget install CodecovUploader -Version %CODECOV_UPLOADER_VERSION% -OutputDirectory packages
@@ -40,9 +41,9 @@ if exist ".\Test\%TESTPROJECTNAME%\publish" rd /S /Q ".\Test\%TESTPROJECTNAME%\p
 dotnet build ./Test/%TESTPROJECTNAME% -c Debug -f %FRAMEWORK% /p:Platform=x64
 
 if exist .\Test\%TESTPROJECTNAME%\*.log del .\Test\%TESTPROJECTNAME%\*.log
-if exist .\Test\%TESTPROJECTNAME%\obj\x64\Debug\%RESULTFILENAME% del .\Test\%TESTPROJECTNAME%\obj\x64\Debug\%RESULTFILENAME%
-%OPENCOVER_EXE% -register:user -target:%NUINT_CONSOLE_EXE% -targetargs:".\Test\%TESTPROJECTNAME%\bin\x64\Debug\%FRAMEWORK%\%TESTPROJECTNAME%.dll --trace=Debug --labels=Before" "-filter:+[*]* -[%TESTPROJECTNAME%*]*" -output:".\Test\%TESTPROJECTNAME%\obj\x64\Debug\%RESULTFILENAME%"
-if exist .\Test\%TESTPROJECTNAME%\obj\x64\Debug\%RESULTFILENAME% %CODECOV_UPLOADER_EXE% -f ".\Test\%TESTPROJECTNAME%\obj\x64\Debug\%RESULTFILENAME%" -t %TOKEN%
+if exist %RESULTFILEPATH% del %RESULTFILEPATH%
+dotnet test ./Test/%TESTPROJECTNAME% -c Debug -f %FRAMEWORK% /p:Platform=x64 --no-build
+if exist %RESULTFILEPATH% %CODECOV_UPLOADER_EXE% -f %RESULTFILEPATH% -t %TOKEN%
 goto end
 
 :error_console1
@@ -62,5 +63,3 @@ echo ERROR: %TESTPROJECTNAME%.dll not built (both Debug and Release are required
 goto end
 
 :end
-del *.log
-if exist TestResult.xml del TestResult.xml

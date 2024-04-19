@@ -68,7 +68,7 @@ before_test:
     printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 -mergeoutput -output:""Coverage-%APPVEYOR_PROJECT_NAME%"".xml\n" > opencover.bat
 
 test_script:
-  - opencover.bat runtests1.bat
+  - runtests1.bat
 
 after_test:
   - ps: Get-Content Coverage-*.xml -Head 3
