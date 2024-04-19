@@ -45,10 +45,10 @@ internal class ReleaseVersion
 
         string[] Split = releaseTag.Split('.');
 
-        Major = -1;
-        Minor = -1;
-        Revision = -1;
-        Build = -1;
+        int ParsedMajor = -1;
+        int ParsedMinor = -1;
+        int ParsedRevision = -1;
+        int ParsedBuild = -1;
 
         for (int i = 0; i < Split.Length; i++)
         {
@@ -61,23 +61,27 @@ internal class ReleaseVersion
             switch (i)
             {
                 case 0:
-                    Major = Value;
+                    ParsedMajor = Value;
                     break;
                 case 1:
-                    Minor = Value;
+                    ParsedMinor = Value;
                     break;
                 case 2:
-                    Revision = Value;
+                    ParsedRevision = Value;
                     break;
                 case 3:
-                    Build = Value;
+                    ParsedBuild = Value;
                     break;
             }
         }
 
         parsedSuccessfully = true;
+        Major = ParsedMajor;
+        Minor = ParsedMinor;
+        Revision = ParsedRevision;
+        Build = ParsedBuild;
     }
-#endregion
+    #endregion
 
     #region Properties
     /// <summary>
@@ -195,9 +199,9 @@ internal class ReleaseVersion
     /// <param name="other">The other version.</param>
     public int CompareTo(ReleaseVersion other)
     {
-        if (other > this)
+        if (other < this)
             return 1;
-        else if (other < this)
+        else if (other > this)
             return -1;
         else
             return 0;

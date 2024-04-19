@@ -1,5 +1,7 @@
 ﻿namespace UpdateCheck.Test;
 
+using System;
+using System.Threading;
 using FlaUI.Core.AutomationElements;
 using NUnit.Framework;
 using TestTools;
@@ -20,6 +22,8 @@ public class UnitTest
 
         AutomationElement TextElement = MainWindow.FindFirstDescendant(cf => cf.ByText("Version:"));
         Assert.That(TextElement, Is.Not.Null);
+
+        Thread.Sleep(TimeSpan.FromSeconds(10));
 
         DemoApplication.Stop(DemoApp);
     }
