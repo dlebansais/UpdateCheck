@@ -71,8 +71,8 @@ test_script:
   - runtests1.bat
 
 after_test:
-  - ps: $env:COVERAGE_RESULT_FILE=./Test/$env:APPVEYOR_PROJECT_NAME.Test/bin/x64/$env:CONFIGURATION/net8.0-windows/result.xml
-  - ps: Get-Content "$env:COVERAGE_RESULT_FILE" -Head 3
+  - ps: $env:COVERAGE_RESULT_FILE="./Test/$env:APPVEYOR_PROJECT_NAME.Test/bin/x64/$env:CONFIGURATION/net8.0-windows/result.xml"
+  - ps: Get-Content $env:COVERAGE_RESULT_FILE -Head 3
   - if '%APPVEYOR_REPO_BRANCH%' == 'master' .\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f %COVERAGE_RESULT_FILE%
 
 artifacts:
