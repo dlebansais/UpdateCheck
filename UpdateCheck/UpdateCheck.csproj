@@ -9,8 +9,8 @@
 
         <RootNamespace>UpdateCheck</RootNamespace>
         <Version>1.0.5</Version>
-        <AssemblyVersion>1.0.5.10</AssemblyVersion>
-        <FileVersion>1.0.5.9</FileVersion>
+        <AssemblyVersion>1.0.5.12</AssemblyVersion>
+        <FileVersion>1.0.5.10</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />

@@ -41,7 +41,7 @@ public class ReleaseVersionTest
     }
 
     [Test]
-    public void CreateParsingFailed()
+    public void CreateParsingFailure()
     {
         ReleaseVersion TestObject = new("1.2.3.x", out bool parsedSuccessfully);
 
