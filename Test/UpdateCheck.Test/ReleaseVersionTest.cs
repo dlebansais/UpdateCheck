@@ -1,5 +1,6 @@
 ﻿namespace UpdateCheck.Test;
 
+using System.Collections.Generic;
 using NUnit.Framework;
 
 [TestFixture]
@@ -133,5 +134,22 @@ public class ReleaseVersionTest
         Assert.That(TestObject1 < TestObject2, Is.True);
         Assert.That(TestObject1.CompareTo(TestObject2), Is.EqualTo(4.CompareTo(5)));
         Assert.That(TestObject2.CompareTo(TestObject1), Is.EqualTo(5.CompareTo(4)));
+    }
+
+    [Test]
+    public void Dictionary()
+    {
+        bool ParsedSuccessfully1;
+        bool ParsedSuccessfully2;
+
+        Dictionary<ReleaseVersion, string> TestTable = new()
+        {
+            { new("1.2.3.4", out ParsedSuccessfully1), "1.2.3.4" },
+            { new("1.2.3.5", out ParsedSuccessfully2), "1.2.3.5" },
+        };
+
+        Assert.That(ParsedSuccessfully1, Is.True);
+        Assert.That(ParsedSuccessfully2, Is.True);
+        Assert.That(TestTable, Has.Count.EqualTo(2));
     }
 }
