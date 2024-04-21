@@ -59,9 +59,10 @@ after_build:
 before_test:
   - nuget install OpenCover -Version %opencover_version% -OutputDirectory packages
   - nuget install CodecovUploader -Version %codecov_uploader_version% -OutputDirectory packages
+  - ps: $env:COVERAGE_RESULT_FILE="./Test/$env:APPVEYOR_PROJECT_NAME.Test/bin/x64/$env:CONFIGURATION/net8.0-windows/Coverage-$env:APPVEYOR_PROJECT_NAME.xml"
   - |-
     printf "dotnet test ./Test/%APPVEYOR_PROJECT_NAME%.Test/bin/x64/%CONFIGURATION%/net8.0-windows/%APPVEYOR_PROJECT_NAME%.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""Coverage-%APPVEYOR_PROJECT_NAME%.xml"" --filter TestCategory=""UseOpenCover""\n" > runtestsWith.bat
-    printf "dotnet test ./Test/%APPVEYOR_PROJECT_NAME%.Test/bin/x64/%CONFIGURATION%/net8.0-windows/%APPVEYOR_PROJECT_NAME%.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""Coverage-%APPVEYOR_PROJECT_NAME%.xml"" --filter TestCategory!=""UseOpenCover""\n" > runtestsWithout.bat
+    printf "dotnet test ./Test/%APPVEYOR_PROJECT_NAME%.Test/bin/x64/%CONFIGURATION%/net8.0-windows/%APPVEYOR_PROJECT_NAME%.Test.dll -l console;verbosity=detailed --filter TestCategory!=""UseOpenCover""\n" > runtestsWithout.bat
   - |-
     printf "@echo ************************************************************** Starting Tests with OpenCover..\n" > runtests1.bat
     printf "call runtestsWith.bat\n" >> runtests1.bat
@@ -69,14 +70,13 @@ before_test:
     printf "@echo ************************************************************** Starting Tests without OpenCover..\n" > runtests2.bat
     printf "call runtestsWithout.bat\n" >> runtests2.bat
   - |-
-    printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 -mergeoutput -output:""Coverage-%APPVEYOR_PROJECT_NAME%"".xml\n" > opencover.bat
+    printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 -output:%COVERAGE_RESULT_FILE% -mergeoutput\n" > opencover.bat
 
 test_script:
   - runtests1.bat
   - opencover.bat runtests2.bat
 
 after_test:
-  - ps: $env:COVERAGE_RESULT_FILE="./Test/$env:APPVEYOR_PROJECT_NAME.Test/bin/x64/$env:CONFIGURATION/net8.0-windows/Coverage-$env:APPVEYOR_PROJECT_NAME.xml"
   - ps: Get-Content $env:COVERAGE_RESULT_FILE -Head 3
   - if '%APPVEYOR_REPO_BRANCH%' == 'master' .\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f %COVERAGE_RESULT_FILE%
 

@@ -25,7 +25,7 @@ public static class DemoApplication
         string AppName = Path.Combine(AppDirectory, $"{demoAppName}.exe");
         string ResultFileName = Environment.GetEnvironmentVariable("RESULTFILENAME") ?? @$"{TestDirectory}\result.xml";
         string CoverageAppName = @$"{OpenCoverBasePath}\tools\OpenCover.Console.exe";
-        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" ""-filter:+[*]* -[{demoAppName}*]*"" -output:""{ResultFileName}""";
+        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" ""-filter:+[*]* -[{demoAppName}*]*"" -output:""{ResultFileName}"" -mergeoutput";
 
         Console.WriteLine($"{DateTime.Now} - Current Directory: {Environment.CurrentDirectory}");
         Console.WriteLine($"{DateTime.Now} - Output to: {ResultFileName}");
