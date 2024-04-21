@@ -59,10 +59,12 @@ after_build:
 before_test:
   - nuget install OpenCover -Version %opencover_version% -OutputDirectory packages
   - nuget install CodecovUploader -Version %codecov_uploader_version% -OutputDirectory packages
-  - ps: $env:COVERAGE_RESULT_FILE="./Test/$env:APPVEYOR_PROJECT_NAME.Test/bin/x64/$env:CONFIGURATION/net8.0-windows/Coverage-$env:APPVEYOR_PROJECT_NAME.xml"
+  - ps: $env:COVERAGE_RESULT_FILE="./Test/$env:APPVEYOR_PROJECT_NAME.Test/bin/x64/$env:CONFIGURATION/Coverage-$env:APPVEYOR_PROJECT_NAME.xml"
   - |-
-    printf "dotnet test ./Test/%APPVEYOR_PROJECT_NAME%.Test/bin/x64/%CONFIGURATION%/net8.0-windows/%APPVEYOR_PROJECT_NAME%.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""Coverage-%APPVEYOR_PROJECT_NAME%.xml"" --filter TestCategory=""UseOpenCover""\n" > runtestsWith.bat
-    printf "dotnet test ./Test/%APPVEYOR_PROJECT_NAME%.Test/bin/x64/%CONFIGURATION%/net8.0-windows/%APPVEYOR_PROJECT_NAME%.Test.dll -l console;verbosity=detailed --filter TestCategory!=""UseOpenCover""\n" > runtestsWithout.bat
+    printf "dotnet test ./Test/%APPVEYOR_PROJECT_NAME%.Test/bin/x64/%CONFIGURATION%/net481/%APPVEYOR_PROJECT_NAME%.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../Coverage-%APPVEYOR_PROJECT_NAME%.xml"" --filter TestCategory=""UseOpenCover""\n" > runtestsWith.bat
+    printf "dotnet test ./Test/%APPVEYOR_PROJECT_NAME%.Test/bin/x64/%CONFIGURATION%/net8.0-windows/%APPVEYOR_PROJECT_NAME%.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../Coverage-%APPVEYOR_PROJECT_NAME%.xml"" --filter TestCategory=""UseOpenCover""\n" >> runtestsWith.bat
+    printf "dotnet test ./Test/%APPVEYOR_PROJECT_NAME%.Test/bin/x64/%CONFIGURATION%/net481/%APPVEYOR_PROJECT_NAME%.Test.dll -l console;verbosity=detailed --filter TestCategory!=""UseOpenCover""\n" > runtestsWithout.bat
+    printf "dotnet test ./Test/%APPVEYOR_PROJECT_NAME%.Test/bin/x64/%CONFIGURATION%/net8.0-windows/%APPVEYOR_PROJECT_NAME%.Test.dll -l console;verbosity=detailed --filter TestCategory!=""UseOpenCover""\n" >> runtestsWithout.bat
   - |-
     printf "@echo ************************************************************** Starting Tests with OpenCover..\n" > runtests1.bat
     printf "call runtestsWith.bat\n" >> runtests1.bat

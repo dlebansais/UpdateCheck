@@ -72,6 +72,9 @@ public class Checker
         catch
         {
             IsUpdateAvailable = false;
+        }
+        finally
+        {
             NotifyUpdateStatusChanged();
         }
     }
@@ -91,8 +94,6 @@ public class Checker
         }
 
         IsUpdateAvailable = BestVersion != FileVersion;
-
-        NotifyUpdateStatusChanged();
     }
     #endregion
 

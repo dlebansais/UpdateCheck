@@ -72,6 +72,8 @@ internal class ReleaseVersion
                 case 3:
                     ParsedBuild = Value;
                     break;
+                default:
+                    break;
             }
         }
 
