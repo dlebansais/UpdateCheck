@@ -71,7 +71,7 @@ test_script:
 after_test:
   - ps: $env:COVERAGE_RESULT_FILE="./Test/$env:APPVEYOR_PROJECT_NAME.Test/bin/x64/$env:CONFIGURATION/net8.0-windows/Coverage-$env:APPVEYOR_PROJECT_NAME.xml"
   - ps: Get-Content $env:COVERAGE_RESULT_FILE -Head 3
-  - if '%APPVEYOR_REPO_BRANCH%' == 'master' .\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f %COVERAGE_RESULT_FILE%
+  - if '%APPVEYOR_REPO_BRANCH%' == 'master' if '%CONFIGURATION%' == 'Debug' .\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f %COVERAGE_RESULT_FILE%
 
 artifacts:
   - path: $(APPVEYOR_PROJECT_NAME)-Debug.*.nupkg
