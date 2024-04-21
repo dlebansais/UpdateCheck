@@ -7,6 +7,7 @@ using NUnit.Framework;
 using TestTools;
 
 [TestFixture]
+[Category("UseOpenCover")]
 public class UnitTest
 {
     private const string DemoAppName = "UpdateCheck.Demo";
