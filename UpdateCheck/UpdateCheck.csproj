@@ -8,9 +8,9 @@
         <Platforms>x64</Platforms>
 
         <RootNamespace>UpdateCheck</RootNamespace>
-        <Version>1.0.5</Version>
-        <AssemblyVersion>1.0.5.14</AssemblyVersion>
-        <FileVersion>1.0.5.10</FileVersion>
+        <Version>1.0.6</Version>
+        <AssemblyVersion>1.0.6.15</AssemblyVersion>
+        <FileVersion>1.0.6.15</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
@@ -67,8 +67,16 @@
         </PackageReference>
         <PackageReference Include="System.Net.Http" Version="4.3.4" />
         <PackageReference Include="Octokit" Version="11.0.1" />
-        <PackageReference Include="Method.Contracts-Debug" Version="1.3.0" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-        <PackageReference Include="Method.Contracts" Version="1.3.0" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+        <PackageReference Include="Method.Contracts.Analyzers-Debug" Version="1.4.3" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Method.Contracts.Analyzers" Version="1.4.3" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Method.Contracts-Debug" Version="1.4.2" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+        <PackageReference Include="Method.Contracts" Version="1.4.2" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='net48'">
