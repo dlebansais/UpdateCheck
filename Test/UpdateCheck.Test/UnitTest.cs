@@ -8,7 +8,7 @@ using TestTools;
 
 [TestFixture]
 [Category("UseOpenCover")]
-public class UnitTest
+internal class UnitTest
 {
     private const string DemoAppName = "UpdateCheck.Demo";
 

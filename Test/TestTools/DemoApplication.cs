@@ -9,7 +9,7 @@ using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using NuGet.Configuration;
 
-public static partial class DemoApplication
+internal static partial class DemoApplication
 {
     public static DemoApp? Launch(string demoAppName, string? arguments = null)
     {
@@ -50,7 +50,9 @@ public static partial class DemoApplication
                 Stop(CoverageApp, App);
             }
             else
+            {
                 _ = CoverageApp.Close();
+            }
         }
 
         return null;
@@ -102,7 +104,9 @@ public static partial class DemoApplication
         Stopwatch Watch = new();
         Watch.Start();
         while (!coverageAppp.HasExited && Watch.Elapsed < TimeSpan.FromSeconds(100.0))
+        {
             Thread.Sleep(1000);
+        }
 
         Thread.Sleep(2000);
         Console.WriteLine($"{DateTime.Now} - Coverage app closed");
@@ -114,10 +118,16 @@ public static partial class DemoApplication
         int[] Version = new int[Versions.Length];
 
         for (int i = 0; i < Versions.Length; i++)
+        {
             if (int.TryParse(Versions[i], out int Value))
+            {
                 Version[i] = Value;
+            }
             else
+            {
                 return null;
+            }
+        }
 
         return Version;
     }
@@ -125,10 +135,16 @@ public static partial class DemoApplication
     private static int CompareVersion(int[] version1, int[] version2)
     {
         for (int i = 0; i < version1.Length && i < version2.Length; i++)
+        {
             if (version1[i] < version2[i])
+            {
                 return 1;
+            }
             else if (version1[i] > version2[i])
+            {
                 return -1;
+            }
+        }
 
         return version2.Length - version1.Length;
     }
@@ -143,11 +159,13 @@ public static partial class DemoApplication
             int SelectedVersionIndex = -1;
 
             for (int i = 0; i < Directories.Length; i++)
+            {
                 if (GetVersion(Path.GetFileName(Directories[i])) is int[] Version && (SelectedVersion is null || CompareVersion(SelectedVersion, Version) > 0))
                 {
                     SelectedVersion = Version;
                     SelectedVersionIndex = i;
                 }
+            }
 
             if (SelectedVersionIndex >= 0)
             {

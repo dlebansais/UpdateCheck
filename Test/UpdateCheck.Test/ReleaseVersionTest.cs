@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 
 [TestFixture]
-public class ReleaseVersionTest
+internal class ReleaseVersionTest
 {
     [Test]
     public void CreateEmpty()

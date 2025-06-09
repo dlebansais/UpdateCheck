@@ -41,7 +41,9 @@ internal class ReleaseVersion
 #else
         if (releaseTag.ToUpperInvariant().StartsWith('V'))
 #endif
+        {
             releaseTag = releaseTag.Substring(1);
+        }
 
         string[] Split = releaseTag.Split('.');
 
@@ -117,16 +119,24 @@ internal class ReleaseVersion
     public static bool operator ==(ReleaseVersion v1, ReleaseVersion v2)
     {
         if (v1.Major != v2.Major)
+            {
             return false;
+        }
 
         if (v1.Minor != v2.Minor)
+            {
             return false;
+        }
 
         if (v1.Revision != v2.Revision)
+            {
             return false;
+        }
 
         if (v1.Build != v2.Build)
+            {
             return false;
+        }
 
         return true;
     }
@@ -151,25 +161,39 @@ internal class ReleaseVersion
     public static bool operator >(ReleaseVersion v1, ReleaseVersion v2)
     {
         if (v1.Major > v2.Major)
+        {
             return true;
+        }
 
         if (v1.Major < v2.Major)
+        {
             return false;
+        }
 
         if (v1.Minor > v2.Minor)
+        {
             return true;
+        }
 
         if (v1.Minor < v2.Minor)
+        {
             return false;
+        }
 
         if (v1.Revision > v2.Revision)
+        {
             return true;
+        }
 
         if (v1.Revision < v2.Revision)
+        {
             return false;
+        }
 
         if (v1.Build > v2.Build)
+        {
             return true;
+        }
 
         return false;
     }
@@ -202,11 +226,17 @@ internal class ReleaseVersion
     public int CompareTo(ReleaseVersion other)
     {
         if (other < this)
+        {
             return 1;
+        }
         else if (other > this)
+        {
             return -1;
+        }
         else
+        {
             return 0;
+        }
     }
 
     /// <summary>

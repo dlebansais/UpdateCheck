@@ -50,7 +50,7 @@ public class Checker
     /// <summary>
     /// Gets the Release page address.
     /// </summary>
-    public string ReleasePageAddress { get { return "https" + $"://github.com/{ProjectOwner}/{ProjectName}/releases"; } }
+    public string ReleasePageAddress => "https" + $"://github.com/{ProjectOwner}/{ProjectName}/releases";
 
     /// <summary>
     /// Gets a value indicating whether an update is available.
@@ -90,7 +90,9 @@ public class Checker
 
             ReleaseVersion Version = new(Item.TagName, out IsParsedSuccessfully);
             if (BestVersion < Version)
+            {
                 BestVersion = Version;
+            }
         }
 
         IsUpdateAvailable = BestVersion != FileVersion;
