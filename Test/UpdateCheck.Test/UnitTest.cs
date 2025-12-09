@@ -21,7 +21,7 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        AutomationElement TextElement = MainWindow.FindFirstDescendant(cf => cf.ByText("Version:"));
+        AutomationElement? TextElement = MainWindow.FindFirstDescendant(cf => cf.ByText("Version:"));
         Assert.That(TextElement, Is.Not.Null);
 
         Thread.Sleep(TimeSpan.FromSeconds(10));

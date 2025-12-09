@@ -8,14 +8,14 @@
         <Platforms>x64</Platforms>
 
         <RootNamespace>UpdateCheck</RootNamespace>
-        <Version>1.0.7</Version>
-        <AssemblyVersion>1.0.7.16</AssemblyVersion>
-        <FileVersion>1.0.7.16</FileVersion>
+        <Version>2.0.0</Version>
+        <AssemblyVersion>2.0.0.17</AssemblyVersion>
+        <FileVersion>2.0.0.17</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
         <Description>Check any GitHub project for update</Description>
-        <Copyright>Copyright © 2024 David Le Bansais</Copyright>
+        <Copyright>Copyright © 2025 David Le Bansais</Copyright>
         <RepositoryUrl>https://github.com/dlebansais/UpdateCheck</RepositoryUrl>
         <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
 
@@ -85,7 +85,7 @@
 
         <!-- System.Drawing.Common is added to mitigate vulnerability. -->
         <!-- Remove as soon as one of the packages above no longer depends on the vulnerable version -->
-        <PackageReference Include="System.Drawing.Common" Version="5.0.3" />
+        <PackageReference Include="System.Drawing.Common" Version="10.0.1" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='net48'">
