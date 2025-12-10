@@ -39,7 +39,7 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
 
-        <PackageReference Include="FlaUI.UIA3" Version="5.0.0" />
+        <PackageReference Include="FlaUI.UIA3.Signed" Version="5.0.0" />
         <PackageReference Include="dlebansais.IDisposableAnalyzers" Version="4.0.8.17">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
