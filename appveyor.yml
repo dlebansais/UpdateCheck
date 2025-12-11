@@ -85,6 +85,7 @@ test_script:
   - if '%APPVEYOR_REPO_BRANCH%' == 'master' opencover.bat runtests2.bat
 
 after_test:
+  - if '%APPVEYOR_REPO_BRANCH%' == 'master' type after-test.bat
   - if '%APPVEYOR_REPO_BRANCH%' == 'master' after-test.bat
 
 artifacts:
