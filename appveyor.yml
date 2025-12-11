@@ -78,14 +78,13 @@ before_test:
   - |-
     printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 -output:%COVERAGE_RESULT_FILE% -mergeoutput\n" > opencover.bat
   - |-
-    printf ".\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f %COVERAGE_RESULT_FILE%\n" > after-test.bat
+    printf ".\packages\CodecovUploader.%codecov_uploader_version%\Tools\Codecov.exe -f %COVERAGE_RESULT_FILE%\n" > after-test.bat
 
 test_script:
   - if '%APPVEYOR_REPO_BRANCH%' == 'master' runtests1.bat
   - if '%APPVEYOR_REPO_BRANCH%' == 'master' opencover.bat runtests2.bat
 
 after_test:
-  - if '%APPVEYOR_REPO_BRANCH%' == 'master' type after-test.bat
   - if '%APPVEYOR_REPO_BRANCH%' == 'master' after-test.bat
 
 artifacts:
