@@ -77,14 +77,15 @@ before_test:
     printf "call runtestsWithout.bat\n" >> runtests2.bat
   - |-
     printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 -output:%COVERAGE_RESULT_FILE% -mergeoutput\n" > opencover.bat
+  - |-
+    printf ".\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f %COVERAGE_RESULT_FILE%\n" > after-test.bat
 
 test_script:
   - if '%APPVEYOR_REPO_BRANCH%' == 'master' runtests1.bat
   - if '%APPVEYOR_REPO_BRANCH%' == 'master' opencover.bat runtests2.bat
 
 after_test:
-  - ps: Get-Content $env:COVERAGE_RESULT_FILE -Head 3
-  - if '%APPVEYOR_REPO_BRANCH%' == 'master' .\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f %COVERAGE_RESULT_FILE%
+  - if '%APPVEYOR_REPO_BRANCH%' == 'master' after-test.bat
 
 artifacts:
   - path: $(PACKAGE_PREFIX).$(APPVEYOR_PROJECT_NAME)-Debug.*.nupkg
