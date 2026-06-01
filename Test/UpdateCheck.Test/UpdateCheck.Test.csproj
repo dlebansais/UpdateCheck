@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net481;net8.0-windows</TargetFrameworks>
-        <LangVersion>12</LangVersion>
+        <TargetFrameworks>net481;net8.0-windows;net10.0-windows</TargetFrameworks>
+        <LangVersion>14</LangVersion>
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
         <IsTestProject>true</IsTestProject>
@@ -31,7 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="dlebansais.CSharpLatest" Version="2.1.6">
+        <PackageReference Include="dlebansais.CSharpLatest" Version="2.7.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -39,13 +39,13 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
-        <PackageReference Include="NUnit" Version="4.4.0" />
-        <PackageReference Include="NUnit.Analyzers" Version="4.11.2">
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.6.0" />
+        <PackageReference Include="NUnit" Version="4.6.1" />
+        <PackageReference Include="NUnit.Analyzers" Version="4.13.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="NUnit3TestAdapter" Version="6.0.0" />
+        <PackageReference Include="NUnit3TestAdapter" Version="6.2.0" />
     </ItemGroup>
 
     <ItemGroup>

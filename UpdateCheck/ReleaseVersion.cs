@@ -209,11 +209,7 @@ internal class ReleaseVersion
         return !(v1 == v2) && !(v1 > v2);
     }
 
-    /// <summary>
-    /// Determines whether the specified object is equal to the current object.
-    /// </summary>
-    /// <param name="obj">The object to compare with the current object.</param>
-    /// <returns>True if the specified object is equal to the current object; otherwise, false.</returns>
+    /// <inheritdoc />
     public override bool Equals(object? obj)
     {
         return base.Equals(obj);
@@ -239,10 +235,7 @@ internal class ReleaseVersion
         }
     }
 
-    /// <summary>
-    /// Gets the object hash code.
-    /// </summary>
-    /// <returns>A hash code for the current object.</returns>
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return base.GetHashCode();
