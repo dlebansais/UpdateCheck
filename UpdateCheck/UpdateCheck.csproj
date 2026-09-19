@@ -71,7 +71,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.401">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="dlebansais.Method.Contracts.Analyzers-Debug" Version="3.0.7" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -85,8 +85,8 @@
 
         <PackageReference Include="System.Net.Http" Version="4.3.4" />
         <PackageReference Include="Octokit" Version="14.0.0" />
-        <PackageReference Include="dlebansais.Method.Contracts-Debug" Version="3.0.1" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-        <PackageReference Include="dlebansais.Method.Contracts" Version="3.0.1" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+        <PackageReference Include="dlebansais.Method.Contracts-Debug" Version="3.0.0" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+        <PackageReference Include="dlebansais.Method.Contracts" Version="3.0.0" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='net481'">
