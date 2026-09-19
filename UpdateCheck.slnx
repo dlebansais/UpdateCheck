@@ -1,0 +1,24 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
+  <Project Path="Demo/UpdateCheck.Demo/UpdateCheck.Demo.csproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="PreBuild/PreBuild.csproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="Test/TestTools/TestTools.csproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="Test/UpdateCheck.Test/UpdateCheck.Test.csproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="UpdateCheck/UpdateCheck.csproj">
+    <BuildDependency Project="PreBuild/PreBuild.csproj" />
+    <Platform Project="x64" />
+  </Project>
+</Solution>
